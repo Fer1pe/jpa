@@ -6,8 +6,9 @@ import com.gerenciador.jpa.repositories.ProdutoRepository;
 import com.gerenciador.jpa.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; // Adicionado
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -18,7 +19,7 @@ import java.util.UUID;
 @Service
 public class UsuarioService {
 
-    public final UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
     private final ProdutoRepository produtoRepository;
 
     /**
@@ -32,43 +33,41 @@ public class UsuarioService {
 
     // CRUD para Usuario
 
-//    /**
-//     * Cadastra um novo usuário.
-//     * @param usuario Usuário a ser cadastrado.
-//     * @return Usuário salvo.
-//     */
-//    @Transactional
-//    public Usuario cadastrarUsuario(Usuario usuario) {
-//        return usuarioRepository.save(usuario);
-//    }
+    /**
+     * Lista todos os usuários cadastrados.
+     * @return lista de usuários
+     */
+    public List<Usuario> listarTodosUsuarios() {
+        return usuarioRepository.findAll();
+    }
 
-//    /**
-//     * Altera um usuário existente.
-//     * @param usuario Usuário com dados atualizados.
-//     * @return Usuário salvo.
-//     */
-//    @Transactional
-//    public Usuario alterarUsuario(Usuario usuario) {
-//        return usuarioRepository.save(usuario);
-//    }
+    /**
+     * Cadastra um novo usuário.
+     * @param usuario Usuário a ser cadastrado.
+     * @return Usuário salvo.
+     */
+    @Transactional
+    public Usuario cadastrarUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
 
-//    /**
-//     * Consulta um usuário pelo ID.
-//     * @param usuarioId ID do usuário.
-//     * @return Optional contendo o usuário, se encontrado.
-//     */
-//    public Optional<Usuario> consultarUsuario(int usuarioId) {
-//        return usuarioRepository.findById(usuarioId);
-//    }
+    /**
+     * Consulta um usuário pelo ID.
+     * @param usuarioId ID do usuário.
+     * @return Optional contendo o usuário, se encontrado.
+     */
+    public Optional<Usuario> consultarUsuario(int usuarioId) {
+        return usuarioRepository.findById(usuarioId);
+    }
 
-//    /**
-//     * Deleta um usuário pelo ID.
-//     * @param usuarioId ID do usuário a ser deletado.
-//     */
-//    @Transactional
-//    public void deletarUsuario(int usuarioId) {
-//        usuarioRepository.deleteById(usuarioId);
-//    }
+    /**
+     * Deleta um usuário pelo ID.
+     * @param usuarioId ID do usuário a ser deletado.
+     */
+    @Transactional
+    public void deletarUsuario(int usuarioId) {
+        usuarioRepository.deleteById(usuarioId);
+    }
 
     // CRUD de Produto feito pelo usuário
 
@@ -155,9 +154,4 @@ public class UsuarioService {
         return usuarioOpt.map(Usuario::getProdutos).orElse(null);
     }
 }
-
-
-
-
-
 
