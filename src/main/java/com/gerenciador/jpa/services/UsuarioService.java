@@ -18,7 +18,7 @@ import java.util.UUID;
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    public final UsuarioRepository usuarioRepository;
     private final ProdutoRepository produtoRepository;
 
     /**
