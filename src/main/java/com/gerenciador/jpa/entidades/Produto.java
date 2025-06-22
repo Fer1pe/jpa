@@ -1,70 +1,52 @@
+// Pacote onde a classe está localizada
 package com.gerenciador.jpa.entidades;
 
-// Importa as anotações JPA e a classe UUID
+// Importações necessárias para JPA e UUID
 import jakarta.persistence.*;
 import java.util.UUID;
 
-// Indica que esta classe é uma entidade JPA
+// Indica que a classe é uma entidade JPA
 @Entity
-// Define o nome da tabela no banco de dados como "PRODUTO"
+// Define o nome da tabela no banco de dados
 @Table(name = "PRODUTO")
-
 public class Produto {
-    // Define o campo "id" como chave primária, gerada automaticamente, do tipo UUID
+    // Identificador único da entidade, gerado automaticamente
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    // Mapeia o campo "name" para a coluna "name", não permitindo valores nulos
+    // Nome do produto, não pode ser nulo
     @Column(name = "name", nullable = false)
     public String name;
 
-    // Mapeia o campo "valor" para a coluna "valor", não permitindo valores nulos
+    // Valor do produto, não pode ser nulo
     @Column(name = "valor", nullable = false)
     public double valor;
 
-    // Mapeia o campo "quantidade" para a coluna "quantidade", não permitindo valores nulos
+    // Quantidade do produto, não pode ser nulo
     @Column(name = "quantidade", nullable = false)
     public int quantidade;
 
+    // Relacionamento ManyToOne com a entidade Usuario (um usuário pode ter vários produtos)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
-    // Getter para o campo "id"
-    public UUID getId() {
-        return id;
-    }
+    // Métodos getters e setters para acessar e modificar os atributos
 
-    // Setter para o campo "id"
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
 
-    // Getter para o campo "name"
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    // Setter para o campo "name"
-    public void setName(String name) {
-        this.name = name;
-    }
+    public double getValor() { return valor; }
+    public void setValor(double valor) { this.valor = valor; }
 
-    // Getter para o campo "valor"
-    public double getValor() {
-        return valor;
-    }
+    public int getQuantidade() { return quantidade; }
+    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
-    // Setter para o campo "valor"
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    // Getter para o campo "quantidade"
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    // Setter para o campo "quantidade"
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
+    // Getter e Setter para o relacionamento com Usuario
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 }
