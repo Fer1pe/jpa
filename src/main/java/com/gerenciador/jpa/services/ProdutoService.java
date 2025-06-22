@@ -7,6 +7,7 @@ import com.gerenciador.jpa.repositories.ProdutoRepository;
 import com.gerenciador.jpa.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // ADICIONADO
 
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +42,7 @@ public class ProdutoService {
      * @return Produto cadastrado
      * @throws IllegalArgumentException se o usuário não for encontrado
      */
+    @Transactional
     public Produto cadastrarProduto(UUID usuarioId, Produto produto) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(Math.toIntExact((Long) usuarioId.getMostSignificantBits()));
         if (usuarioOpt.isEmpty()) {
@@ -57,6 +59,7 @@ public class ProdutoService {
      * @return Produto alterado
      * @throws IllegalArgumentException se o usuário não for encontrado
      */
+    @Transactional
     public Produto alterarProduto(UUID usuarioId, Produto produto) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(Math.toIntExact((Long) usuarioId.getMostSignificantBits()));
         if (usuarioOpt.isEmpty()) {
@@ -102,6 +105,7 @@ public class ProdutoService {
      * @param produtoId ID do produto
      * @throws IllegalArgumentException se o produto não for encontrado ou não pertencer ao usuário
      */
+    @Transactional
     public void deletarProduto(UUID usuarioId, UUID produtoId) {
         Optional<Produto> produtoOpt = produtoRepository.findById(produtoId);
         if (produtoOpt.isPresent() && produtoOpt.get().getUsuario().getId() == Math.toIntExact((Long) usuarioId.getMostSignificantBits())) {
@@ -111,4 +115,3 @@ public class ProdutoService {
         }
     }
 }
-
