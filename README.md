@@ -37,7 +37,7 @@ O sistema permite o cadastro de usuários e produtos associados a esses usuário
 1. Clone o repositório:
 
     ```bash
-    git clone [URL do repositório]
+    git clone https://github.com/Fer1pe/jpa
     cd gerenciador
     ```
 
